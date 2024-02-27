@@ -108,6 +108,69 @@ public class Calculator implements ActionListener{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i<10;i++){
+            if(e.getSource() == numberButtons[i]){
+                textField.setText(textField.getText().concat(String.valueOf(i)));
+            }
+        }
+        if(e.getSource()==decButton){
+            if(!textField.getText().contains(".")){
+                textField.setText(textField.getText().concat("."));
+            }
+        }
+        if(e.getSource()==addButton){
+            num1 = Double.parseDouble(textField.getText());
+            operator = '+';
+            textField.setText("");
+        }
+        if(e.getSource()==subButton){
+            num1 = Double.parseDouble(textField.getText());
+            operator = '-';
+            textField.setText("");
+        }
+        if(e.getSource()==mulButton){
+            num1 = Double.parseDouble(textField.getText());
+            operator = '*';
+            textField.setText("");
+        }
+        if(e.getSource()==divButton){
+            num1 = Double.parseDouble(textField.getText());
+            operator = '/';
+            textField.setText("");
+        }
+        if(e.getSource()==equButton){
+            num2 = Double.parseDouble(textField.getText());
 
+            result = switch (operator){
+                case '+' -> addNumbers(num1,num2);
+                case '-' -> subNumbers(num1,num2);
+                case '*' -> mulNumbers(num1,num2);
+                case '/' -> divNumbers(num1,num2);
+                default -> throw new IllegalStateException("Unexpected value: " + operator);
+            };
+            textField.setText(String.valueOf(result));
+            operator = ' ';
+        }
+
+        if(e.getSource()==clrButton){
+            num1 = 0;
+            num2 = 0;
+            result = 0;
+            textField.setText("");
+        }
+    }
+
+//    Methods
+    public double addNumbers(double num1, double num2){
+        return num1 + num2;
+    }
+    public double subNumbers(double num1, double num2){
+        return num1 - num2;
+    }
+    public double mulNumbers(double num1, double num2){
+        return num1 * num2;
+    }
+    public double divNumbers(double num1, double num2){
+        return num1 / num2;
     }
 }
