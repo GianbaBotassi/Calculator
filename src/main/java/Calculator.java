@@ -138,18 +138,23 @@ public class Calculator implements ActionListener{
             operator = '/';
             textField.setText("");
         }
+
+        if(e.getSource()==delButton){
+            if(!textField.getText().isEmpty()){
+            textField.setText(textField.getText().substring(0,textField.getText().length() - 1));
+            }
+        }
         if(e.getSource()==equButton){
             num2 = Double.parseDouble(textField.getText());
 
-            result = switch (operator){
-                case '+' -> addNumbers(num1,num2);
-                case '-' -> subNumbers(num1,num2);
-                case '*' -> mulNumbers(num1,num2);
-                case '/' -> divNumbers(num1,num2);
-                default -> throw new IllegalStateException("Unexpected value: " + operator);
+            switch (operator){
+                case '+' -> result = num1 + num2;
+                case '-' -> result = num1 - num2;
+                case '*' -> result = num1 * num2;
+                case '/' -> result = num1 / num2;
             };
             textField.setText(String.valueOf(result));
-            operator = ' ';
+            num1=result;
         }
 
         if(e.getSource()==clrButton){
@@ -160,17 +165,5 @@ public class Calculator implements ActionListener{
         }
     }
 
-//    Methods
-    public double addNumbers(double num1, double num2){
-        return num1 + num2;
-    }
-    public double subNumbers(double num1, double num2){
-        return num1 - num2;
-    }
-    public double mulNumbers(double num1, double num2){
-        return num1 * num2;
-    }
-    public double divNumbers(double num1, double num2){
-        return num1 / num2;
-    }
+
 }
